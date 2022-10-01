@@ -91,39 +91,57 @@ void save_board(game_state_t *state, char *filename)
 /* Task 4.1 */
 static bool is_tail(char c)
 {
-  // TODO: Implement this function.
-  return true;
+  return c == 'w' || c == 'a' || c == 's' || c == 'd';
 }
 
 static bool is_snake(char c)
 {
-  // TODO: Implement this function.
-  return true;
+  return c == '^' || c == '<' || c == '>' || c == 'v' || c == 'x' || is_tail(c);
 }
 
 static char body_to_tail(char c)
 {
-  // TODO: Implement this function.
+  if (c == '^') {
+    return 'w';
+  } else if (c == '<') {
+    return 'a';
+  } else if (c == '>') {
+    return 'd';
+  } else if (c == 'v') {
+    return 's';
+  }
   return '?';
 }
 
 static int incr_x(char c)
 {
-  // TODO: Implement this function.
+  if (c == '>' || c == 'd') {
+    return 1;
+  } else if (c == '<' || c == 'a') {
+    return -1;
+  }
   return 0;
 }
 
 static int incr_y(char c)
 {
-  // TODO: Implement this function.
+  if (c == 'v' || c == 's') {
+    return 1;
+  } else if (c == '^' || c == 'w') {
+    return -1;
+  }
   return 0;
 }
 
 /* Task 4.2 */
 static char next_square(game_state_t *state, int snum)
 {
-  // TODO: Implement this function.
-  return '?';
+  int pos_x = state->snakes->head_x;
+  int pos_y = state->snakes->head_y;
+  char head = state->board[pos_x][pos_y];
+  int pos_x_next = pos_x + incr_x(head);
+  int pos_y_next = pos_y + incr_y(head);
+  return state->board[pos_x_next][pos_y_next];
 }
 
 /* Task 4.3 */
