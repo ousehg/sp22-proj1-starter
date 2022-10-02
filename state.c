@@ -244,6 +244,10 @@ game_state_t *load_board(char *filename)
   state->y_size = length_y;
   printf("y: %i, x: %i\n", length_y, length_x);
   fclose(f);
+  for (int i = 0; i < state->y_size; i += 1)
+  {
+    printf("%s", state->board[i]);
+  }
   return state;
 }
 
