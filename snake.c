@@ -3,19 +3,23 @@
 #include "snake_utils.h"
 #include "state.h"
 
-int main(int argc, char* argv[]) {
-  char* in_filename = NULL;
-  char* out_filename = NULL;
-  game_state_t* state = NULL;
+int main(int argc, char *argv[])
+{
+  char *in_filename = NULL;
+  char *out_filename = NULL;
+  game_state_t *state = NULL;
 
   // Parse arguments
-  for (int i = 1; i < argc; i++) {
-    if (strcmp(argv[i], "-i") == 0 && i < argc - 1) {
+  for (int i = 1; i < argc; i++)
+  {
+    if (strcmp(argv[i], "-i") == 0 && i < argc - 1)
+    {
       in_filename = argv[i + 1];
       i++;
       continue;
     }
-    if (strcmp(argv[i], "-o") == 0 && i < argc - 1) {
+    if (strcmp(argv[i], "-o") == 0 && i < argc - 1)
+    {
       out_filename = argv[i + 1];
       i++;
       continue;
@@ -29,27 +33,45 @@ int main(int argc, char* argv[]) {
   /* Task 7 */
 
   // Read board from file, or create default board if no input filename was given
-  if (in_filename != NULL) {
+  if (in_filename != NULL)
+  {
     // TODO: load the board from in_filename into state...
     state = load_board(in_filename);
     // TODO: ...then call initialize_snakes on the state you made
     initialize_snakes(state);
-  } else {
+  }
+  else
+  {
     // TODO: create the default state in state
     state = create_default_state();
   }
 
+  // for (int i = 0; i < state->y_size; i += 1)
+  // {
+  //   printf("before update: %s", state->board[i]);
+  // }
+  // printf("head pos before: (%i, %i)\n", state->snakes->head_x, state->snakes->head_y);
+  // printf("tail pos before: (%i, %i)\n", state->snakes->tail_x, state->snakes->tail_y);
   // TODO: Update state. Use the deterministic_food function
   // (already implemented in state_utils.h) to add food.
   update_state(state, deterministic_food);
-
+  // for (int i = 0; i < state->y_size; i += 1)
+  // {
+  //   printf("after  update: %s", state->board[i]);
+  // }
+  // printf("head pos after : (%i, %i)\n", state->snakes->head_x, state->snakes->head_y);
+  // printf("tail pos after : (%i, %i)\n", state->snakes->tail_x, state->snakes->tail_y);
   // Write updated board to file, or print to stdout if no output filename was given
-  if (out_filename != NULL) {
+  if (out_filename != NULL)
+  {
     // TODO: save the board to out_filename
     save_board(state, out_filename);
-  } else {
+  }
+  else
+  {
     // TODO: print the board to stdout
-    for (int i = 0; i < state->y_size; i += 1) {
+    for (int i = 0; i < state->y_size; i += 1)
+    {
       printf("%s", state->board[i]);
     }
   }
