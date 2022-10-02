@@ -232,7 +232,7 @@ game_state_t *load_board(char *filename)
     c = getc(f);
   }
   rewind(f);
-  length_x = length_x / length_y - 1;
+  length_x = (length_x / length_y) - 1;
   char **board = (char **)malloc(length_y * sizeof(char *));
   for (int i = 0; i < length_y; i += 1)
   {
@@ -241,8 +241,7 @@ game_state_t *load_board(char *filename)
   // fread(board, length_x + 1, length_y, f);
   for (int i = 0; i < length_y; i += 1)
   {
-    char *c = fgets(board[i], 128, f);
-    printf("line: %i %s\n", i, c);
+    fgets(board[i], 128, f);
   }
   state->board = board;
   state->x_size = length_x;
@@ -254,13 +253,33 @@ game_state_t *load_board(char *filename)
 /* Task 6.1 */
 static void find_head(game_state_t *state, int snum)
 {
-  // TODO: Implement this function.
+  for (int i = 0; i < state->y_size; i += 1)
+  {
+    for (int j = 0; j < state->x_size; j += 1)
+    {
+      char square = get_board_at(state, j, i);
+      if (!is_snake(square) || is_tail(square))
+      {
+        continue;
+      }
+      int pos_x_next = j + incr_x(square);
+      int pos_y_next = i + incr_y(square);
+      char square_next = get_board_at(state, pos_x_next, pos_y_next);
+      if (square_next != ' ')
+      {
+        continue;
+      }
+      state->snakes->head_x = j;
+      state->snakes->head_y = i;
+    }
+  }
   return;
 }
 
 /* Task 6.2 */
 game_state_t *initialize_snakes(game_state_t *state)
 {
-  // TODO: Implement this function.
-  return NULL;
+  find_head(state, 0);
+  state->num_snakes = 1;
+  return state;
 }
