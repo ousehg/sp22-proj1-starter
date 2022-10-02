@@ -258,8 +258,14 @@ static void find_head(game_state_t *state, int snum)
     for (int j = 0; j < state->x_size; j += 1)
     {
       char square = get_board_at(state, j, i);
-      if (!is_snake(square) || is_tail(square))
+      if (!is_snake(square) && !is_tail(square))
       {
+        continue;
+      }
+      if (is_tail(square))
+      {
+        state->snakes->tail_x = j;
+        state->snakes->tail_y = i;
         continue;
       }
       int pos_x_next = j + incr_x(square);
