@@ -279,6 +279,8 @@ static void find_head(game_state_t *state, int snum)
 /* Task 6.2 */
 game_state_t *initialize_snakes(game_state_t *state)
 {
+  state->snakes = (snake_t *)malloc(sizeof(snake_t));
+  state->snakes->live = true;
   find_head(state, 0);
   state->num_snakes = 1;
   return state;
