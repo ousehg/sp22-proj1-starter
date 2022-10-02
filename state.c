@@ -213,11 +213,11 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state))
 /* Task 5 */
 game_state_t *load_board(char *filename)
 {
+  FILE *f = fopen(filename, "r");
+  char c = getc(f);
   game_state_t *state = (game_state_t *)malloc(sizeof(game_state_t));
   int length_x = 0;
   int length_y = 0;
-  FILE *f = fopen(filename, "r");
-  char c = getc(f);
   while (c != EOF)
   {
     if (c == '\n')
@@ -231,23 +231,23 @@ game_state_t *load_board(char *filename)
     }
     c = getc(f);
   }
+  rewind(f);
   length_x = length_x / length_y - 1;
   char **board = (char **)malloc(length_y * sizeof(char *));
   for (int i = 0; i < length_y; i += 1)
   {
     board[i] = (char *)malloc((length_x + 1) * sizeof(char));
   }
-  rewind(f);
-  fread(board, length_y, length_x + 1, f);
+  // fread(board, length_x + 1, length_y, f);
+  for (int i = 0; i < length_y; i += 1)
+  {
+    char *c = fgets(board[i], 128, f);
+    printf("line: %i %s\n", i, c);
+  }
   state->board = board;
   state->x_size = length_x;
   state->y_size = length_y;
-  printf("y: %i, x: %i\n", length_y, length_x);
   fclose(f);
-  for (int i = 0; i < state->y_size; i += 1)
-  {
-    printf("%s", state->board[i]);
-  }
   return state;
 }
 
