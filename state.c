@@ -217,15 +217,10 @@ game_state_t *load_board(char *filename)
   int length_x = 0;
   int length_y = 0;
   FILE *f = fopen(filename, "r");
-  while (1)
+  char c = getc(f);
+  while (c != EOF)
   {
-    char c = getc(f);
-    if (c == EOF)
-    {
-      printf("get char eof: %c\n", c);
-      break;
-    }
-    else if (c == '\n')
+    if (c == '\n')
     {
       length_y += 1;
       length_x += 1;
@@ -234,15 +229,16 @@ game_state_t *load_board(char *filename)
     {
       length_x += 1;
     }
+    c = getc(f);
   }
   length_x = length_x / length_y - 1;
   char **board = (char **)malloc(length_y * sizeof(char *));
   for (int i = 0; i < length_y; i += 1)
   {
-    board[i] = (char *)malloc(length_x + 1 * sizeof(char));
+    board[i] = (char *)malloc((length_x + 1) * sizeof(char));
   }
   rewind(f);
-  fread(board, length_y, length_x, f);
+  fread(board, length_y, length_x + 1, f);
   state->board = board;
   state->x_size = length_x;
   state->y_size = length_y;
