@@ -194,7 +194,8 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state))
 {
   for (int i = 0; i < 4; i += 1)
   {
-    if (state->snakes[i].head_x == 0 && state->snakes[i].head_y == 0)
+    int sum = state->snakes[i].head_x * state->snakes[i].head_y;
+    if (sum > state->x_size * state->y_size || sum <= 0)
     {
       continue;
     }
