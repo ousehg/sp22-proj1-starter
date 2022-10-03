@@ -199,12 +199,12 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state))
     {
       continue;
     }
-    for (int j = 0; j < state->y_size; j += 1)
-    {
-      printf("before update: %s", state->board[j]);
-    }
-    printf("snake-%i head pos before: (%i, %i)\n", i, state->snakes[i].head_x, state->snakes[i].head_y);
-    printf("snake-%i tail pos before: (%i, %i)\n", i, state->snakes[i].tail_x, state->snakes[i].tail_y);
+    // for (int j = 0; j < state->y_size; j += 1)
+    // {
+    //   printf("before update: %s", state->board[j]);
+    // }
+    // printf("snake-%i head pos before: (%i, %i)\n", i, state->snakes[i].head_x, state->snakes[i].head_y);
+    // printf("snake-%i tail pos before: (%i, %i)\n", i, state->snakes[i].tail_x, state->snakes[i].tail_y);
     char next = next_square(state, i);
     if (next == '#' || is_snake(next) || is_tail(next))
     {
@@ -221,12 +221,12 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state))
       update_head(state, i);
       update_tail(state, i);
     }
-    for (int j = 0; j < state->y_size; j += 1)
-    {
-      printf("after update: %s", state->board[j]);
-    }
-    printf("snake-%i head pos after: (%i, %i)\n", i, state->snakes[i].head_x, state->snakes[i].head_y);
-    printf("snake-%i tail pos after: (%i, %i)\n", i, state->snakes[i].tail_x, state->snakes[i].tail_y);
+    // for (int j = 0; j < state->y_size; j += 1)
+    // {
+    //   printf("after update: %s", state->board[j]);
+    // }
+    // printf("snake-%i head pos after: (%i, %i)\n", i, state->snakes[i].head_x, state->snakes[i].head_y);
+    // printf("snake-%i tail pos after: (%i, %i)\n", i, state->snakes[i].tail_x, state->snakes[i].tail_y);
   }
   return;
 }
@@ -316,7 +316,7 @@ game_state_t *initialize_snakes(game_state_t *state)
       state->snakes[state->num_snakes].tail_x = j;
       state->snakes[state->num_snakes].tail_y = i;
       find_head(state, state->num_snakes);
-      printf("initialize_snakes snake %i head(%i,%i), tail(%i, %i)\n", state->num_snakes, state->snakes[0].head_x, state->snakes[0].head_y, state->snakes[0].tail_x, state->snakes[0].tail_y);
+      // printf("initialize_snakes snake %i head(%i,%i), tail(%i, %i)\n", state->num_snakes, state->snakes[0].head_x, state->snakes[0].head_y, state->snakes[0].tail_x, state->snakes[0].tail_y);
       state->num_snakes += 1;
     }
   }
