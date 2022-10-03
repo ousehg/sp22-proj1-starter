@@ -45,22 +45,9 @@ int main(int argc, char *argv[])
     // TODO: create the default state in state
     state = create_default_state();
   }
-
-  // for (int i = 0; i < state->y_size; i += 1)
-  // {
-  //   printf("before update: %s", state->board[i]);
-  // }
-  // printf("head pos before: (%i, %i)\n", state->snakes->head_x, state->snakes->head_y);
-  // printf("tail pos before: (%i, %i)\n", state->snakes->tail_x, state->snakes->tail_y);
   // TODO: Update state. Use the deterministic_food function
   // (already implemented in state_utils.h) to add food.
   update_state(state, deterministic_food);
-  // for (int i = 0; i < state->y_size; i += 1)
-  // {
-  //   printf("after  update: %s", state->board[i]);
-  // }
-  // printf("head pos after : (%i, %i)\n", state->snakes->head_x, state->snakes->head_y);
-  // printf("tail pos after : (%i, %i)\n", state->snakes->tail_x, state->snakes->tail_y);
   // Write updated board to file, or print to stdout if no output filename was given
   if (out_filename != NULL)
   {
